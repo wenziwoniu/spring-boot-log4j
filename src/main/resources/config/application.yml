@@ -1,0 +1,21 @@
+info:
+  name: spring-boot-log4j-default
+  contact: spring-boot-log4j-default
+
+server:
+  port: 8080
+  address: localhost
+  sessionTimeout: 30
+  contextPath: /boot-log4j
+
+spring:
+  application:
+    name: spring-boot-log4j
+  http:
+    encoding: UTF-8
+  profiles:
+    active: dev
+
+#明确指定配置路径   如果不指定，则根据所使用日志类别在classpath下寻找默认配置文件,默认文件名称是log4j2.xml或log4j2-spring.xml
+logging:
+  config: classpath:config/log4j2.xml

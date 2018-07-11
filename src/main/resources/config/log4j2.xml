@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info" monitorInterval="5">
+	<Appenders>
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5p %c{1}(%F:%L) - %m%n" />
+		</Console>
+
+		<RollingFile name="fixedTimeFileAppender" fileName="logs/spring-boot.log"
+			filePattern="logs/spring-boot.log.%d{yyyy-MM-dd}.%i.log.gz">
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5p %c{2}(%F:%L) - %m%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="512 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="512" />
+		</RollingFile>
+
+		<RollingFile name="myBatisFileAppender" fileName="logs/mybatis.log"
+			filePattern="logs/mybatis.log.%d{yyyy-MM-dd}.%i.log.gz">
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5p %c{1}(%F:%L) - %m%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="512 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="512" />
+		</RollingFile>
+
+		<Async name="async" bufferSize="512" includeLocation="true">
+			<AppenderRef ref="fixedTimeFileAppender" />
+		</Async>
+
+		<Async name="myBatis" bufferSize="512" includeLocation="true">
+			<AppenderRef ref="myBatisFileAppender" />
+			<AppenderRef ref="console" />
+		</Async>
+	</Appenders>
+
+	<Loggers>
+		
+		<!-- 对name路径下的日志重新定义规则additivity=false定义不用同时遵守root所指定的规则，即不会重复打印日志 -->
+		<Logger name="com.vivebest" level="info" additivity="false">
+			<AppenderRef ref="async" />
+			<AppenderRef ref="console" />
+		</Logger>
+
+		<Logger name="org.apache.ibatis" level="info" additivity="false">
+			<AppenderRef ref="myBatis" />
+			<AppenderRef ref="console" />
+		</Logger>
+
+		<Logger name="org.mybatis" level="info" additivity="false">
+			<AppenderRef ref="myBatis" />
+			<AppenderRef ref="console" />
+		</Logger>
+
+		<Logger name="cncom.vivebest.eump.app.dao" level="debug"
+			additivity="false">
+			<AppenderRef ref="myBatis" />
+			<AppenderRef ref="console" />
+		</Logger>
+		
+		<!-- 默认配置 所有日志遵守该规则，除非覆盖该配置  -->
+		<Root level="info">
+			<AppenderRef ref="async" />
+			<AppenderRef ref="console" />
+		</Root>
+	</Loggers>
+</Configuration>

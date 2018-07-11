@@ -1,0 +1,6 @@
+info:
+  name: spring-boot-log4j-dev
+  contact: spring-boot-log4j-dev
+
+server:
+  port: 8001

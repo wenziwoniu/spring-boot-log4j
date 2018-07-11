@@ -1,0 +1,6 @@
+info:
+  name: spring-boot-log4j-test
+  contact: spring-boot-log4j-test
+
+server:
+  port: 8002

@@ -1,0 +1,6 @@
+info:
+  name: spring-boot-log4j-prod
+  contact: spring-boot-log4j-prod
+
+server:
+  port: 8003
